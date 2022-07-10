@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Cowboy Assigment</title>
+  <meta charset="utf-8">
+<link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+      <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+      <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script> 
+	  <style>
+	  div {width:815px;
+	  height:615px;
+	  background-color:yellow;
+	  background-image: url("western-american-desert-nature-backgro.jpg")
+	  }
+	  </style>
+	</head>
+	<body style="background-color:SandyBrown;">
+		<div >
+		<canvas id="canvas1" width="1000" height="800"> </canvas>
+		</div>
+		<script>
+//RequestAnimationFrame for the Browsers and the movement of animation
+(function() {
+  var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+                              window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+  window.requestAnimationFrame = requestAnimationFrame;
+})();
+            
+// canvas creation 
+var c = document.querySelector("#canvas1");
+var ctx = c.getContext('2d');
+var x =200;
+var y=270;
+var xdir=1;
+var ydir=1;
+            
+var hit=0;
+            
+var rectx = 100;
+var recty=300;          
+            
+            
+//code for the destination of the bullet
+// select directions
+function select () {
+	if (x ==750 || x==195){
+	
+  //  hit=0;
+	xdir=-1* xdir
+    }
+   
+    // the bullet can move only horizontal so we need the x vertex only
+	
+		if (xdir==1) {  
+		x=x+5;        
+		}
+		else
+		{
+		x=x-5;
+		}
+
+// if the value is bigger than the value below the we will see the cowboy, else the cowboy is dead
+if (x>=200){
+       hit=0;
+	requestAnimationFrame(draw);	
+}
+    else {
+        hit=1;
+        x=0;
+	requestAnimationFrame(draw2);
+    }
+
+    }
+            
+    
+//draw of cowboy            
+function draw()  {	
+  
+    ctx.clearRect(0, 0, 1000,800 );
+	ctx.beginPath();
+                  var draw=ctx.arc(100,200,50,0,2*Math.PI);  
+                  ctx.strokeStyle="black";
+				  ctx.stroke();
+                  ctx.fillStyle="NavajoWhite";
+                  ctx.fill(); 
+              
+                  ctx.rect(rectx-15,recty-75,30,300);  
+                  ctx.strokeStyle="black";
+				  ctx.stroke();
+                  ctx.fill();	
+              
+              ctx.rect(rectx-25,recty-35,20,150);  
+                  ctx.strokeStyle="black";
+				  ctx.stroke();
+                  ctx.fill();	
+           
+               //hand with the gun
+               ctx.rect(rectx-25,recty-35,150,20);  
+                  ctx.strokeStyle="black";
+				  ctx.stroke();
+                  ctx.fill();
+              
+              //draw of the gun
+            ctx.beginPath();
+               ctx.rect(rectx+100,recty-35,40,10);  
+                  ctx.strokeStyle="black";
+				  ctx.stroke();
+              ctx.fillStyle="grey";
+                  ctx.fill();
+              
+               ctx.rect(rectx+100,recty-35,10,20);  
+                  ctx.strokeStyle="black";
+				  ctx.stroke();
+              ctx.fillStyle="grey";
+                  ctx.fill();
+              
+               //draw of the hat
+              ctx.beginPath();
+                   ctx.rect(rectx-70,recty-150,140,10);  
+                  ctx.strokeStyle="black";
+				  ctx.stroke();
+                  ctx.fillStyle="brown";
+                  ctx.fill(); 
+              
+              ctx.beginPath();
+                   ctx.rect(rectx-35,recty-170,65,30);  
+                  ctx.strokeStyle="black";
+				  ctx.stroke();
+                  ctx.fillStyle="brown";
+                  ctx.fill(); 
+                       
+            //draw of the wall
+              ctx.beginPath();
+                   ctx.rect(rectx+650,recty-235,20,500);  
+                  ctx.strokeStyle="black";
+				  ctx.stroke();
+                  ctx.fillStyle="DarkRed";
+                  ctx.fill(); 
+    
+            //draw of the bullet
+              ctx.beginPath();
+                  var draw=ctx.arc(x,y,5,0,2*Math.PI);
+                  ctx.strokeStyle="black";
+				  ctx.stroke();
+                  ctx.fillStyle="LightSlateGrey";
+                  ctx.fill(); 	  
+             
+} 
+      
+requestAnimationFrame(draw);     
+setInterval(select, 20);  
+
+            
+//draw of dead cowboy            
+   function draw2()  {	
+ctx.clearRect(0, 0, 1000,800 );
+	ctx.beginPath();
+                  var draw2=ctx.arc(90,450,50,0,2*Math.PI);  
+                  ctx.strokeStyle="black";
+				  ctx.stroke();
+                  ctx.fillStyle="NavajoWhite";
+                  ctx.fill(); 
+              
+                  ctx.rect(rectx+30,recty+150,300,30);  
+                  ctx.strokeStyle="black";
+				  ctx.stroke();
+                  ctx.fill();	
+              
+              ctx.rect(rectx+40,recty+170,150,20);  
+                  ctx.strokeStyle="black";
+				  ctx.stroke();
+                  ctx.fill();	
+              
+               //draw of the hat
+              ctx.beginPath();
+                   ctx.rect(rectx-50,recty+80,10,140);  
+                  ctx.strokeStyle="black";
+				  ctx.stroke();
+                  ctx.fillStyle="brown";
+                  ctx.fill(); 
+              
+              ctx.beginPath();
+                   ctx.rect(rectx-70,recty+120,30,65);  
+                  ctx.strokeStyle="black";
+				  ctx.stroke();
+                  ctx.fillStyle="brown";
+                  ctx.fill(); 
+       
+        //draw of the wall
+              ctx.beginPath();
+                   ctx.rect(rectx+650,recty-235,20,500);  
+                  ctx.strokeStyle="black";
+				  ctx.stroke();
+                  ctx.fillStyle="DarkRed";
+                  ctx.fill(); 
+       
+       //text
+        ctx.font = '30pt Calibri';
+      ctx.lineWidth = 3;
+      // stroke color
+      ctx.strokeStyle = 'brown';
+      ctx.strokeText('This was a mistake!', 50, 380);
+              
+}
+            
+requestAnimationFrame(draw2); 
+</script>	
+        
+        
+        <h4>Image was found from page:</h4>
+		<cite>https://thumbs.dreamstime.com/b/western-american-desert-nature-background-vector-prairie-landscape-cactuses-space-text-141478564.jpg</cite>
+	</body>
+</html>
